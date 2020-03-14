@@ -1,25 +1,24 @@
 -- aimware.net/forum/thread-116236.html
 
-hsounds = { "bf4.wav", "kovaakhit.wav", "minecraft.mp3", "toy.wav" }
-ksounds = { "bf4.wav", "kovaakded.wav", "minecraft.mp3", "toy.wav" }
+hsounds = { "bf4.wav", "rifk.wav", "minecraft.mp3", "toy.wav", "Hardimpact.wav", "dominating.mp3" }
 
 local localplayer, localplayerindex, listen, GetPlayerIndexByUserID, g_curtime = entities.GetLocalPlayer, client.GetLocalPlayerIndex, client.AllowListener, client.GetPlayerIndexByUserID, globals.CurTime
 local ref = gui.Reference("Misc", "Enhancement")
 local msc_ref = gui.Groupbox(ref, "Healthshot hitsound", 328,313, 296,400)
 
 local allenabled = gui.Checkbox(msc_ref, 'lua_hitsound_enabled', 'Hitsound/marker enabled', 1)
-
-local killssounds = gui.Combobox(msc_ref, 'lua_killsound_combobox', 'Killsound', "Off", "Battlefield 4", "Kovaak", "Minecraft oh", "Toy")
+-----------------------------
+local killssounds = gui.Combobox(msc_ref, 'lua_killsound_combobox', 'Killsound', "Off", "Battlefield 4", "Rifk", "Minecraft oh", "Toy", "Impact", "Dominating")
 killssounds:SetDescription("Overrides the headshot and hit sound on kill")
 
-local hssounds = gui.Combobox(msc_ref, 'lua_hssounds_combobox', 'Headshot sound', "Off", "Battlefield 4", "Kovaak", "Minecraft oh", "Toy")
+local hssounds = gui.Combobox(msc_ref, 'lua_hssounds_combobox', 'Headshot sound', "Off", "Battlefield 4", "Rifk", "Minecraft oh", "Toy", "Impact", "Dominating")
 hssounds:SetDescription("Overrides the hitsound on HS")
 
-local hitssounds = gui.Combobox(msc_ref, 'lua_hitsound_combobox', 'Hitsound', "Off", "Battlefield 4", "Kovaak", "Minecraft oh", "Toy")
-
+local hitssounds = gui.Combobox(msc_ref, 'lua_hitsound_combobox', 'Hitsound', "Off", "Battlefield 4", "Rifk", "Minecraft oh", "Toy", "Impact", "Dominating")
+-------------
 local Healthshot = gui.Combobox(msc_ref, 'lua_healthshot_hitmarker_combobox', 'Healthshot hitmarker', 'Off', 'On hit', 'On kill')
 local slider = gui.Slider(msc_ref, 'lua_healthshot_hitmarker_slider', 'Healthshot duration (sec)', 1, 0, 10)
-
+------------------------------
 listen('player_hurt')
 listen('player_death')
 
@@ -46,7 +45,7 @@ local function healthshot_hitmarker(e)
   if (event_name == 'player_death') then
     client.ChatSay(HITGROUP)
     if (killssounds:GetValue() ~= 0 ) then
-      local hitcmd = "play " .. ksounds[killssounds:GetValue()];
+      local hitcmd = "play " .. hsounds[killssounds:GetValue()];
         client.Command(hitcmd, true);
     end
 

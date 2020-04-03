@@ -54,37 +54,26 @@ local function healthshot_hitmarker(e)
       localplayer():SetProp('m_flHealthShotBoostExpirationTime', g_curtime() + duration)
     end
   end
-
+  
   if (event_name == 'player_hurt') then
-
     if (hssounds:GetValue() ~= 0 ) then
-
-      if (e:GetInt("hitgroup") == 1) then
-        
+      if (e:GetInt("hitgroup") == 1) then  -- If hit head
         local hitcmd = "play " .. hsounds[hssounds:GetValue()];
           client.Command(hitcmd, true);
-      else
-        if (Healthshot:GetValue() ~= 0 ) and (Healthshot:GetValue() == 1 ) then
-          localplayer():SetProp('m_flHealthShotBoostExpirationTime', g_curtime() + duration)
-        end
+      else  -- If hit not-head
         if (hitssounds:GetValue() ~= 0 ) then
           local hitcmd = "play " .. hsounds[hitssounds:GetValue()];
             client.Command(hitcmd, true);
         end
       end
-      if (Healthshot:GetValue() ~= 0 ) and (Healthshot:GetValue() == 2 ) then
-        localplayer():SetProp('m_flHealthShotBoostExpirationTime', g_curtime() + duration)
-      end
-
     else
-
-      if (Healthshot:GetValue() ~= 0 ) and (Healthshot:GetValue() == 1 ) then
-        localplayer():SetProp('m_flHealthShotBoostExpirationTime', g_curtime() + duration)
-      end
       if (hitssounds:GetValue() ~= 0 ) then
         local hitcmd = "play " .. hsounds[hitssounds:GetValue()];
           client.Command(hitcmd, true);
       end
+    end
+    if (Healthshot:GetValue() ~= 0 ) and (Healthshot:GetValue() == 1 ) then
+      localplayer():SetProp('m_flHealthShotBoostExpirationTime', g_curtime() + duration)
     end
   end
 end

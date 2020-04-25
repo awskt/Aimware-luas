@@ -9,7 +9,6 @@ local function add(time, ...)
 end
 local function showtp(count, player)
     local nd = currentTP
-    print(player.tp)
     if globals.RealTime() < player.delay then
             if player.tp < nd then player.tp = player.tp + (nd - player.tp) * 0.08 end
             if player.tp > nd then player.tp = nd end

@@ -22,7 +22,7 @@ local allenabled = gui.Checkbox(msc_ref, 'lua_healthshot_hitsound_enabled', 'Hit
 local killsay = gui.Checkbox(msc_ref, 'lua_healthshot_killsay_enabled', 'Enable killsay', 0)
 killsay:SetDescription("Writing random messages on kill")
 local hitcross = gui.Checkbox(msc_ref, 'lua_healthshot_hitcross_enabled', 'Enable crosshair marker', 0)
-local hitmarkerColor = gui.ColorPicker(hitcross, "lua_healthshot_hitcross_color", "", 50, 10, 255, 255);
+local hitmarkerColor = gui.ColorPicker(hitcross, "lua_healthshot_hitcross_color", "", 255, 165, 10, 255);
 hitcross:SetDescription("Drawing a marker on the center of screen") 
 local linesize = gui.Slider(msc_ref, 'lua_healthshot_hitcross_slider', 'Crosshair marker size', 15, 0, 20)
 

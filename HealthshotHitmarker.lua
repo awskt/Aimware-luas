@@ -24,7 +24,8 @@ killsay:SetDescription("Writing random messages on kill")
 local hitcross = gui.Checkbox(msc_ref, 'lua_healthshot_hitcross_enabled', 'Enable crosshair marker', 0)
 local hitmarkerColor = gui.ColorPicker(hitcross, "lua_healthshot_hitcross_color", "", 255, 165, 10, 255);
 hitcross:SetDescription("Drawing a marker on the center of screen") 
-local linesize = gui.Slider(msc_ref, 'lua_healthshot_hitcross_slider', 'Crosshair marker size', 15, 0, 20)
+local linesize = gui.Slider(msc_ref, 'lua_healthshot_hitcross_slider', 'Crosshair marker size', 15, 1, 30)
+local hitcrossrotate = gui.Checkbox(msc_ref, 'lua_healthshot_hitcross_rotated', 'Rotate marker by 45', 0)
 
 local killssounds = gui.Combobox(msc_ref, 'lua_healthshot_killsound_combobox', 'Killsound', "Off", "Bass", "Battlefield 4", "Bowhit", "Bruh", "You a gay", "Kovaak", "Cookie", "Windows XP error", "Roblox", "Vitas", "Minecraft hit", "Gachimuchi", "Metro 2033", "Minecraft oh", "Rust HS", "Toy", "Impact (loud)")
 killssounds:SetDescription("Overrides the headshot and hit sound on kill")
@@ -118,7 +119,6 @@ local function healthshot_hitmarker(e)
       add(slider:GetValue())
     end
     if (hitcross:GetValue() == true) then
-      print("here1111")
       CrossTime = globals.RealTime()
     end
   end
@@ -155,12 +155,19 @@ callbacks.Register('Draw', function()
   end
   if (alpha > 0) then
     linesizeValue = linesize:GetValue()
-     draw.Color( r,g,b,alpha)
-     draw.Line( screenCenterX, screenCenterY - linesizeValue / 2, screenCenterX, screenCenterY - ( linesizeValue ))
-     draw.Line( screenCenterX - linesizeValue / 2, screenCenterY, screenCenterX - ( linesizeValue ), screenCenterY)
-     draw.Line( screenCenterX, screenCenterY + linesizeValue / 2, screenCenterX, screenCenterY + ( linesizeValue ))
-     draw.Line( screenCenterX + linesizeValue / 2, screenCenterY, screenCenterX + ( linesizeValue ), screenCenterY)
-  end
+    draw.Color( r,g,b,alpha)
+      if(hitcrossrotate:GetValue() == true) then
+        draw.Line( screenCenterX - linesizeValue / 2, screenCenterY - linesizeValue / 2, screenCenterX - ( linesizeValue ), screenCenterY - ( linesizeValue ))
+        draw.Line( screenCenterX - linesizeValue / 2, screenCenterY + linesizeValue / 2, screenCenterX - ( linesizeValue ), screenCenterY + ( linesizeValue ))
+        draw.Line( screenCenterX + linesizeValue / 2, screenCenterY + linesizeValue / 2, screenCenterX + ( linesizeValue ), screenCenterY + ( linesizeValue ))
+        draw.Line( screenCenterX + linesizeValue / 2, screenCenterY - linesizeValue / 2, screenCenterX + ( linesizeValue ), screenCenterY - ( linesizeValue ))
+      else
+        draw.Line( screenCenterX, screenCenterY - linesizeValue / 2, screenCenterX, screenCenterY - ( linesizeValue ))
+        draw.Line( screenCenterX - linesizeValue / 2, screenCenterY, screenCenterX - ( linesizeValue ), screenCenterY)
+        draw.Line( screenCenterX, screenCenterY + linesizeValue / 2, screenCenterX, screenCenterY + ( linesizeValue ))
+        draw.Line( screenCenterX + linesizeValue / 2, screenCenterY, screenCenterX + ( linesizeValue ), screenCenterY)
+      end
+    end
   if not allenabled:GetValue() then
     FovshotMode:SetInvisible( true )
     sliderFOV:SetInvisible( true )
@@ -183,8 +190,10 @@ callbacks.Register('Draw', function()
     end
     if hitcross:GetValue() == false then
       linesize:SetInvisible( true )
+      hitcrossrotate:SetInvisible( true )
     else
       linesize:SetInvisible( false )
+      hitcrossrotate:SetInvisible( false )
     end
   end
   killsay:SetInvisible( not allenabled:GetValue() )
@@ -194,5 +203,4 @@ callbacks.Register('Draw', function()
   hitssounds:SetInvisible( not allenabled:GetValue() )
   Healthshot:SetInvisible( not allenabled:GetValue() )
   hitcross:SetInvisible( not allenabled:GetValue() )
-
 end);

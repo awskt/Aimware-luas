@@ -130,11 +130,13 @@ local function showFov(count, player)
       if sliderStart:GetValue() > nd then
         if player.fov > nd then player.fov = player.fov - (nd + player.fov) * sliderSmooth:GetValue()/1000 end -- время анимации
         if player.fov < nd then player.fov = nd end
-        client.SetConVar("fov_cs_debug", player.fov, true)
+        --client.SetConVar("fov_cs_debug", player.fov, true)
+        gui.SetValue("esp.local.fov", player.fov )
       else
       if player.fov < nd then player.fov = player.fov + (nd - player.fov) * sliderSmooth:GetValue()/1000 end -- время анимации
       if player.fov > nd then player.fov = nd end
-      client.SetConVar("fov_cs_debug", player.fov, true)
+      --client.SetConVar("fov_cs_debug", player.fov, true)
+      gui.SetValue("esp.local.fov", player.fov )
   end
   else
     table.remove(activeFovs, count)
@@ -203,4 +205,5 @@ callbacks.Register('Draw', function()
   hitssounds:SetInvisible( not allenabled:GetValue() )
   Healthshot:SetInvisible( not allenabled:GetValue() )
   hitcross:SetInvisible( not allenabled:GetValue() )
+
 end);

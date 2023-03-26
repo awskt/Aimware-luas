@@ -1,14 +1,14 @@
 callbacks.Register('FireGameEvent', function(e)
-    local en = e:GetName();
+	local en = e:GetName();
 	if(en ~= "player_spawn" and en ~= "player_death") then return end;
 
 	local localPlayer = entities.GetLocalPlayer();
 
 	if(localPlayer == nil) then return end;
 
-    local userIndex = client.GetPlayerIndexByUserID(e:GetInt('userid'));
+	local userIndex = client.GetPlayerIndexByUserID(e:GetInt('userid'));
 	local localPlayerIndex = localPlayer:GetIndex();
-    
+
 	if(userIndex ~= localPlayerIndex) then return end;
 
 	local isalive;
